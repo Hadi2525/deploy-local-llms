@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deploy-local-llm"
+version = "0.1.0"
+description = "A brief description of your project"
+authors = [
+    { name="Full Stack AI Lab", email="fullstackailab@gmail.com" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.12"
+
+[project.urls]
+"Homepage" = "https://your.project.homepage"
+"Repository" = "https://github.com/yourusername/yourproject"
+
+
+[tool.setuptools]
+# Additional setuptools configuration can go here
