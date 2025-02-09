@@ -1,0 +1,373 @@
+/* Base and Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* CSS Variables for Light and Dark Modes */
+:root {
+  --bg-color: #f0f0f0; /* Slightly darker than pure white */
+  --text-color: #333;
+  --container-bg: #fff;
+  --header-bg: #3D0D0D; /* New primary color */
+  --header-text: #fff;
+  --user-bg: #dcf8c6;
+  --bot-bg: #ececec;
+  --input-border: #ccc;
+  --input-focus: #3D0D0D;
+  --link-color: #3D0D0D;
+  --link-hover-bg: rgba(61, 13, 13, 0.1);
+  --link-hover-color: #3D0D0D;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding-bottom: 70px; /* space for footer */
+}
+
+/* Dark Mode Overrides */
+body.dark-mode {
+  --bg-color: #2c2c2c;
+  --text-color: #eee;
+  --container-bg: #3c3c3c;
+  --header-bg: #3D0D0D;
+  --header-text: #eee;
+  --user-bg: #4c8c4c;
+  --bot-bg: #555;
+  --input-border: #666;
+  --input-focus: #888;
+  /* Note: Link variables remain as defined; overrides are applied later */
+  --link-color: #3D0D0D;
+  --link-hover-bg: rgba(61, 13, 13, 0.1);
+  --link-hover-color: #3D0D0D;
+}
+
+/* Chat Container (Resizable, 80% width & height) */
+.chat-container {
+  width: 80vw;
+  height: 80vh;
+  min-width: 300px;
+  min-height: 300px;
+  background-color: var(--container-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  resize: both;
+  margin-top: 20px;
+}
+
+/* Chat Header */
+.chat-header {
+  background-color: var(--header-bg);
+  color: var(--header-text);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+.chat-header h1 {
+  flex-grow: 1;
+  font-size: 20px;
+  text-align: center;
+  margin-right: 20px;
+}
+
+/* Mode Toggle Button */
+.mode-toggle {
+  background-color: var(--header-text);
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  margin-right: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+.mode-toggle img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Chat History */
+.chat-history {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: var(--container-bg);
+}
+
+/* Chat Input Area */
+.chat-input {
+  display: flex;
+  padding: 15px 20px;
+  border-top: 1px solid var(--input-border);
+  background-color: var(--container-bg);
+}
+.chat-input input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid var(--input-border);
+  border-radius: 25px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.chat-input input:focus {
+  border-color: var(--input-focus);
+}
+.chat-input button {
+  background-color: var(--header-bg);
+  color: var(--header-text);
+  border: none;
+  padding: 0 20px;
+  margin-left: 10px;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.chat-input button:hover {
+  background-color: var(--input-focus);
+}
+
+/* Chat Message Bubbles */
+.message {
+  max-width: 70%;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  word-wrap: break-word;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+.user-message {
+  background-color: var(--user-bg);
+  margin-left: auto;
+  text-align: right;
+}
+.bot-message {
+  background-color: var(--bot-bg);
+  margin-right: auto;
+  text-align: left;
+}
+
+/* Adjust loading message styling so it matches regular messages */
+.message.loading {
+  padding: 10px 15px;
+  line-height: 1.4;
+}
+
+/* Bot Response Layout with Icon */
+.bot-response {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+.bot-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+.bot-text {
+  flex: 1;
+}
+
+/* Loading Indicator (Animated Ellipsis) */
+.thinking-indicator {
+  display: flex;
+  align-items: center;
+}
+.ellipsis {
+  display: inline-block;
+}
+.ellipsis span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+  background-color: var(--header-bg);
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: ellipsis 1.2s infinite;
+}
+.ellipsis span:nth-child(1) { animation-delay: 0s; }
+.ellipsis span:nth-child(2) { animation-delay: 0.2s; }
+.ellipsis span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes ellipsis {
+  0% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+  100% { opacity: 0.4; transform: scale(1); }
+}
+
+/* Bot References */
+.bot-references {
+  font-size: 0.85em;
+  color: var(--text-color);
+  margin-top: 10px;
+  background-color: rgba(0, 0, 0, 0.03);
+  padding: 10px;
+  border-radius: 8px;
+}
+.bot-references hr {
+  border: none;
+  border-top: 1px dashed var(--input-border);
+  margin: 8px 0;
+}
+.bot-references ol {
+  padding-left: 20px;
+  margin: 0;
+}
+.bot-references li {
+  margin-bottom: 4px;
+}
+.source-snippet {
+  margin-left: 20px;
+  font-style: italic;
+  opacity: 0.8;
+  font-size: 0.9em;
+  color: var(--text-color);
+}
+.bot-references a {
+  color: var(--link-color);
+  text-decoration: none;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.bot-references a:hover {
+  background-color: var(--link-hover-bg);
+  color: var(--link-hover-color);
+}
+
+/* Dark Mode References Links Overrides */
+body.dark-mode .bot-references a {
+  color: #ddd !important;
+}
+body.dark-mode .bot-references a:hover {
+  background-color: #444 !important;
+  color: #fff !important;
+}
+
+/* Footer Styling */
+.footer {
+  width: 100%;
+  background-color: var(--container-bg);
+  text-align: center;
+  font-size: 0.9em;
+  color: var(--text-color);
+  border-top: 1px solid var(--input-border);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 30px 0;
+}
+
+/* Dark Mode Footer Overrides */
+body.dark-mode .footer,
+body.dark-mode .footer a {
+  color: #eee !important;
+}
+
+/* Dark Mode Footer Link Hover Override */
+body.dark-mode .footer a:hover {
+  background-color: #555;
+  color: #ccc !important;
+}
+
+/* Horizontal Social Links in Footer */
+.social-links {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.social-links li {
+  margin: 0;
+}
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.social-links a:hover {
+  background-color: var(--link-hover-bg);
+  color: var(--link-hover-color);
+}
+.social-links img {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+/* Responsive Mobile Styles */
+@media (max-width: 600px) {
+  .chat-container {
+    width: 95vw;
+    height: 80vh;
+    margin: 10px auto;
+    min-width: unset;
+    min-height: unset;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .chat-header {
+    padding: 10px 20px;
+  }
+  .chat-header h1 {
+    font-size: 20px;
+    margin-right: 20px;
+  }
+  
+  .chat-history {
+    padding: 20px;
+  }
+  
+  .chat-input {
+    display: flex;
+    padding: 15px 20px;
+  }
+  .chat-input input {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+  .chat-input button {
+    padding: 0 20px;
+    font-size: 14px;
+    margin-left: 10px;
+  }
+  
+  /* Footer remains fixed with the original horizontal social links */
+  .footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 0;
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Add the viewport meta tag for responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat with AI Chatbot (RAG Enabled)</title>
+  <!-- Link to the CSS file -->
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <!-- Link to the favicon -->
+  <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+</head>
+<body>
+  <div class="chat-container" id="chatContainer">
+    <div class="chat-header">
+      <!-- Mode toggle button with an image loaded from the images folder -->
+      <button id="modeToggle" class="mode-toggle">
+        <img id="modeIcon" src="/static/images/moon.svg" alt="Toggle Mode">
+      </button>
+      <h1>Chat with AI Chatbot</h1>
+    </div>
+    <div class="chat-history" id="chatHistory">
+      <!-- Chat messages will be dynamically added here -->
+    </div>
+    <div class="chat-input">
+      <input type="text" id="messageInput" placeholder="Type your message here..." autocomplete="off">
+      <button id="sendButton">Send</button>
+    </div>
+  </div>
+
+  <!-- Footer with vertical social links and corresponding icons -->
+  <footer class="footer">
+    <ul class="social-links">
+      <li>
+        <a href="https://www.youtube.com/@fullstackailab" target="_blank">
+          <img src="/static/images/youtube.svg" alt="YouTube Icon">
+          <span>YouTube</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/h1rouhani" target="_blank">
+          <img src="/static/images/linkedin.svg" alt="LinkedIn Icon">
+          <span>LinkedIn</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.github.com/Hadi2525" target="_blank">
+          <img src="/static/images/github.svg" alt="GitHub Icon">
+          <span>GitHub</span>
+        </a>
+      </li>
+      <li>
+        <a href="mailto:fullstackailab@gmail.com" target="_blank">
+          <img src="/static/images/email.svg" alt="Email Icon">
+          <span>Email</span>
+        </a>
+      </li>
+    </ul>
+  </footer>
+
+  <!-- Include the JavaScript file -->
+  <script src="/static/js/script.js"></script>
+</body>
+</html>
