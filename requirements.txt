@@ -8,3 +8,4 @@ langchain-mongodb
 langgraph
 pymongo
 uvicorn
+jinja2
